@@ -24,14 +24,6 @@ public class OndabiApplication {
 
         User user = new User("Ivan");
 
-		String testPassword = "pass123";
-		Argon2 argon2 = new Argon2();
-
-		String testHash = argon2.hash(testPassword);
-
-		System.out.println("Hash: "+ testHash);
-		System.out.println("Hash 2: "+ argon2.hash(testPassword));
-		System.out.println(argon2.verify(testPassword, testHash));
 		//SpringApplication app = new SpringApplication(OndabiApplication.class);
         //app.setBannerMode(Banner.Mode.OFF);
         //app.run(args);

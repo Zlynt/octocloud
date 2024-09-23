@@ -29,7 +29,6 @@ public class Database {
     private void prepareParameters(PreparedStatement statement, Object[] params) throws SQLException {
         for(int i = 0; i < params.length; i++){
             Object obj = params[i];
-            System.out.println(obj.toString());
 
             if(obj.getClass() == String.class) statement.setString(i+1, (String) obj);
             else if(obj.getClass() == Integer.class) statement.setInt(i+1, (Integer) obj);
@@ -56,6 +55,15 @@ public class Database {
         prepareParameters(statement, params);
 
         return statement.executeQuery();
+    }
+
+    public void update(String query, Object... params) throws  SQLException {
+        // Prepare query
+        PreparedStatement statement = this.connection.prepareStatement(query);
+        // Prepare parameters
+        prepareParameters(statement, params);
+
+        statement.executeUpdate();
     }
 
     public void close() throws SQLException {
