@@ -48,6 +48,10 @@ public class Database {
         statement.executeUpdate();
     }
 
+    public void delete(String query, Object... params) throws SQLException{
+        this.update(query, params);
+    }
+
     public ResultSet select(String query, Object... params) throws  SQLException {
         // Prepare query
         PreparedStatement statement = this.connection.prepareStatement(query);
