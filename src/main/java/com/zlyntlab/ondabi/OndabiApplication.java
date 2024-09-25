@@ -18,15 +18,12 @@ import com.zlyntlab.ondabi.users.User;
 public class OndabiApplication {
 
 	public static void main(String[] args) {
-		System.out.println("Welcome to HomeServer");
+		System.out.println("Welcome to the Grid!");
 
 
-
-        User user = new User("Ivan");
-
-		//SpringApplication app = new SpringApplication(OndabiApplication.class);
-        //app.setBannerMode(Banner.Mode.OFF);
-        //app.run(args);
+		SpringApplication app = new SpringApplication(OndabiApplication.class);
+        app.setBannerMode(Banner.Mode.OFF);
+        app.run(args);
 	}
 
 }

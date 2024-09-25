@@ -20,7 +20,7 @@ public class User {
 
     private User() {
         String sql = """
-            CREATE TABLE IF NOT EXISTS Users (
+            CREATE TABLE IF NOT EXISTS User (
                 Username                varchar(20) PRIMARY KEY,
                 Password                varchar(30),
 
@@ -48,7 +48,7 @@ public class User {
         this.username = username;
 
         try {
-            ResultSet result = this.database.select("SELECT * from Users WHERE Username = ?;", this.username);
+            ResultSet result = this.database.select("SELECT * from User WHERE Username = ?;", this.username);
             if (!result.next()) throw new UserNotFoundException(username);
         } catch (SQLException e) {
             throw new UserNotFoundException(username);
@@ -78,7 +78,7 @@ public class User {
 
     public Boolean delete() throws SQLException, UserNotFoundException {
         String sql = """
-            DELETE FROM Users
+            DELETE FROM User
             WHERE Username = ?;
         """;
         this.database.delete(sql, username);
@@ -103,7 +103,7 @@ public class User {
 
     private String getPassword(){
         try {
-            ResultSet result = this.database.select("SELECT Password from Users WHERE Username = ?;", this.username);
+            ResultSet result = this.database.select("SELECT Password from User WHERE Username = ?;", this.username);
             if (result.next()){
                 return result.getString("Password");
             }
@@ -121,7 +121,7 @@ public class User {
     public boolean isAdmin() {
         String query = """
         SELECT IsAdmin
-        FROM Users
+        FROM User
         WHERE Username = ?;
         """;
         try {

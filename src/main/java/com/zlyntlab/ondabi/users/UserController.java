@@ -1,6 +1,5 @@
-package com.zlyntlab.ondabi.controllers;
+package com.zlyntlab.ondabi.users;
 
-import com.zlyntlab.ondabi.users.UserNotFoundException;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,7 +9,7 @@ import java.sql.SQLException;
 
 @RestController
 @RequestMapping("/api/user")
-public class User {
+public class UserController {
     @RequestMapping(value = "session", method = RequestMethod.GET)
 
     private boolean IsSessionStarted(HttpSession session) {
@@ -23,7 +22,7 @@ public class User {
 
     @RequestMapping(value = "session", method = RequestMethod.POST)
     public String Login(String username, String password, HttpSession session) {
-        if(username == null || password == null) return "Username em falta!";
+        if(username == null || password == null) return "Username missing";
 
         // User exists?
         com.zlyntlab.ondabi.users.User user;
@@ -52,7 +51,12 @@ public class User {
 
     @RequestMapping(value = "create",method = RequestMethod.POST)
     public String Register(String username, String password) {
-        if(username == null || password == null) return "Username em falta!";
+        if(username == null || password == null) return "Username missing";
+
+        if(!username.equals(username.toLowerCase()))
+            return "Username must be lowercase";
+        if(!username.matches("^[a-z]+[a-z0-9_]{2,}$"))
+            return "Username is invalid";
 
         try {
             com.zlyntlab.ondabi.users.User user = new com.zlyntlab.ondabi.users.User(username);
