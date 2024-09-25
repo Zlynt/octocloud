@@ -12,8 +12,13 @@ import java.sql.SQLException;
 @RequestMapping("/api/user")
 public class User {
     @RequestMapping(value = "session", method = RequestMethod.GET)
+
+    private boolean IsSessionStarted(HttpSession session) {
+        return session.getAttribute("user") != null;
+    }
+
     public String IsLoggedIn(HttpSession session) {
-        return session.getAttribute("user") != null ? "ok" : "nok";
+        return IsSessionStarted(session) ? "ok" : "nok";
     }
 
     @RequestMapping(value = "session", method = RequestMethod.POST)
@@ -65,4 +70,18 @@ public class User {
         return "ok";
 
     }
-;}
+
+    @RequestMapping(value = "password", method = RequestMethod.PATCH)
+    public String ChangePassword(String oldPass, String newPass, HttpSession session) {
+        if(!IsSessionStarted(session)) return "Invalid Session";
+
+        com.zlyntlab.ondabi.users.User user = (com.zlyntlab.ondabi.users.User) session.getAttribute("user");
+
+        if(!user.checkPassword(oldPass)) return "Wrong current password";
+
+        user.setPassword(newPass);
+
+        return "ok";
+    }
+
+}
