@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import com.zlyntlab.ondabi.crypto.Argon2;
 import com.zlyntlab.ondabi.database.Database;
 
-public class User{
+public class User {
     // Database
     protected Database database;
     // User variables

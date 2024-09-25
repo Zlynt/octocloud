@@ -2,7 +2,7 @@ package com.zlyntlab.ondabi.database;
 
 import java.sql.*;
 
-public class Database {
+public class Database implements DatabaseInterface {
     // Create a singleton
     private static Database instance;
     // Variables

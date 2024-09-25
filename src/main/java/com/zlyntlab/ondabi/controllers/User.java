@@ -1,6 +1,7 @@
 package com.zlyntlab.ondabi.controllers;
 
 import com.zlyntlab.ondabi.users.UserNotFoundException;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,10 +9,15 @@ import org.springframework.web.bind.annotation.RestController;
 import java.sql.SQLException;
 
 @RestController
+@RequestMapping("/api/user")
 public class User {
+    @RequestMapping(value = "session", method = RequestMethod.GET)
+    public String IsLoggedIn(HttpSession session) {
+        return session.getAttribute("user") != null ? "ok" : "nok";
+    }
 
-    @RequestMapping(value = "/api/auth", method = RequestMethod.GET)
-    public String Login(String username, String password) {
+    @RequestMapping(value = "session", method = RequestMethod.POST)
+    public String Login(String username, String password, HttpSession session) {
         if(username == null || password == null) return "Username em falta!";
 
         // User exists?
@@ -27,10 +33,19 @@ public class User {
             return "Wrong username or password";
         }
 
+        if(session.getAttribute("user") == null)
+            session.setAttribute("user", user);
+
         return "ok";
     }
 
-    @RequestMapping(value = "/api/auth",method = RequestMethod.POST)
+    @RequestMapping(value = "session", method = RequestMethod.DELETE)
+    public String Logout(HttpSession session) {
+        session.invalidate();
+        return "ok";
+    }
+
+    @RequestMapping(value = "create",method = RequestMethod.POST)
     public String Register(String username, String password) {
         if(username == null || password == null) return "Username em falta!";
 
