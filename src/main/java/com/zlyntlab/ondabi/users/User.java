@@ -20,16 +20,16 @@ public class User {
 
     private User() {
         String sql = """
-            CREATE TABLE IF NOT EXISTS User (
-                Username                varchar(20) PRIMARY KEY,
-                Password                varchar(30),
+            CREATE TABLE IF NOT EXISTS "User" (
+                "Username"                varchar(20) PRIMARY KEY,
+                "Password"                varchar(30),
 
-                PublicEncryptionKey     varchar(255),
-                privateEncryptionKey    varchar(255),
+                "PublicEncryptionKey"     varchar(255),
+                "privateEncryptionKey"    varchar(255),
 
-                PublicSignatureKey      varchar(255),
-                PrivateSignatureKey     varchar(255),
-                IsAdmin                 INTEGER NOT NULL DEFAULT 0
+                "PublicSignatureKey"      varchar(255),
+                "PrivateSignatureKey"     varchar(255),
+                "IsAdmin"                 INTEGER NOT NULL DEFAULT 0
             );
         """;
 
@@ -86,6 +86,10 @@ public class User {
         return true;
     }
 
+    public String getUsername() {
+        return this.username;
+    }
+
     public void setPassword(String password) {
         String query = """
         UPDATE Users
@@ -100,7 +104,6 @@ public class User {
             throw new RuntimeException(e);
         }
     }
-
     private String getPassword(){
         try {
             ResultSet result = this.database.select("SELECT Password from User WHERE Username = ?;", this.username);
@@ -112,7 +115,6 @@ public class User {
             throw new RuntimeException(e);
         }
     }
-
     public Boolean checkPassword(String password) {
         Argon2 argon2 = new Argon2();
         return argon2.verify(password, this.getPassword());

@@ -3,13 +3,27 @@ package com.zlyntlab.ondabi.database;
 import java.sql.*;
 
 public class Database implements DatabaseInterface {
+    // Settings
+    private static final String hostname = System.getenv("DB_HOST");
+    private static final String port = System.getenv("DB_PORT");
+    private static final String database = System.getenv("DB_NAME");
+    private static final String username = System.getenv("DB_USERNAME");
+    private static final String password = System.getenv("DB_PASSWORD");
     // Create a singleton
     private static Database instance;
     // Variables
     private Connection connection;
 
     private Database() throws SQLException{
-        this.connection = DriverManager.getConnection("JDBC:sqlite:ondabi_database.db");
+        this.connection = DriverManager.getConnection(
+                String.format(
+                    "jdbc:postgresql://%s:%s/%s",
+                        hostname, port,
+                        database
+                ),
+                username,
+                password
+        );
         this.connection.setAutoCommit(true);
     }
 
