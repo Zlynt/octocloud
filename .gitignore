@@ -32,5 +32,5 @@ build/
 ### VS Code ###
 .vscode/
 
-### Database ###
-ondabi_database.db
+### Game Files ###
+games/files/

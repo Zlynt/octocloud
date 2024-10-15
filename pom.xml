@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.zlyntlab</groupId>
-	<artifactId>ondabi</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
-	<name>ondabi</name>
-	<description>HS, the home server</description>
+	<artifactId>octocloud</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>octocloud</name>
+	<description>An all-in-one solution</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -58,6 +58,13 @@
 			<artifactId>sqlite-jdbc</artifactId>
 			<version>3.46.1.0</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.7.4</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
