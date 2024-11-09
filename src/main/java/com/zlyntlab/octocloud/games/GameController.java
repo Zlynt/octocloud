@@ -25,8 +25,12 @@ public class GameController {
             System.getenv("GAMES_FOLDER") != null ? System.getenv("GAMES_FOLDER") : "./games"
     ).toAbsolutePath().normalize();
 
-    public GameController() throws IOException {
-        Files.createDirectories(fileStorageLocation);
+    public GameController() {
+        try {
+            Files.createDirectories(fileStorageLocation);
+        } catch (IOException e) {
+            System.out.println("Failed to create directory for games at "+fileStorageLocation);
+        }
     }
 
     @GetMapping("{id}/files/**")

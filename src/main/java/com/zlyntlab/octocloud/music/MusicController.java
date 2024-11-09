@@ -29,7 +29,11 @@ public class MusicController {
     ).toAbsolutePath().normalize();
 
     public MusicController() throws IOException {
-        Files.createDirectories(fileStorageLocation);
+        try {
+            Files.createDirectories(fileStorageLocation);
+        } catch (IOException e) {
+            System.out.println("Failed to create directory for games at " + fileStorageLocation);
+        }
     }
 
     @GetMapping("files/**")
