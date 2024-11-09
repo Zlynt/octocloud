@@ -21,8 +21,8 @@ public class OctoCloudApplication {
 		// Start scheduled tasks
 		ArrayList<Task> tasks = new ArrayList<Task>();
 		// Create a Game Task
-		GameTask gameTask = new GameTask();
-		tasks.add(gameTask);
+		//GameTask gameTask = new GameTask();
+		//tasks.add(gameTask);
 		// Start the tasks schedule
 		ScheduledTasks scheduledTasks = new ScheduledTasks(tasks);
 
