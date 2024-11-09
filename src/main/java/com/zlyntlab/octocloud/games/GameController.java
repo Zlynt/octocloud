@@ -21,7 +21,9 @@ import java.nio.charset.StandardCharsets;
 @RequestMapping("/api/game")
 public class GameController {
     // Folder where all games binaries are stored
-    private final Path fileStorageLocation = Paths.get(System.getenv("GAMES_FOLDER")).toAbsolutePath().normalize();
+    private final Path fileStorageLocation = Paths.get(
+            System.getenv("GAMES_FOLDER") != null ? System.getenv("GAMES_FOLDER") : "./games"
+    ).toAbsolutePath().normalize();
 
     public GameController() throws IOException {
         Files.createDirectories(fileStorageLocation);

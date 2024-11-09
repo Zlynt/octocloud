@@ -24,7 +24,9 @@ import java.nio.file.Paths;
 @RequestMapping("/api/music")
 public class MusicController {
     // Folder where all games binaries are stored
-    private final Path fileStorageLocation = Paths.get(System.getenv("MUSIC_FOLDER")).toAbsolutePath().normalize();
+    private final Path fileStorageLocation = Paths.get(
+            System.getenv("MUSIC_FOLDER") != null ? System.getenv("MUSIC_FOLDER") : "./music"
+    ).toAbsolutePath().normalize();
 
     public MusicController() throws IOException {
         Files.createDirectories(fileStorageLocation);
