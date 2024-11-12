@@ -1,4 +1,4 @@
-FROM eclipse-temurin:23-jdk-jammy AS build
+FROM eclipse-temurin:23.0.1_11-jdk-alpine AS build
 
 ENV HOME=/usr/app
 RUN mkdir -p $HOME
@@ -9,7 +9,7 @@ RUN --mount=type=cache,target=/root/.m2 ./mvnw -f $HOME/pom.xml clean package
 #
 # Package stage
 #
-FROM eclipse-temurin:23-jre-jammy
+FROM eclipse-temurin:23.0.1_11-jre-alpine
 
 ARG JAR_FILE=/usr/app/target/*.jar
 COPY --from=build $JAR_FILE /app/runner.jar
